@@ -46,8 +46,11 @@ stan-chat-assistant/
 
 ├── server/
 │   ├── index.js            # Express server with AI integration
+
 │   ├── package.json        # Dependencies
+
 │   ├── package-lock.json   # Locked dependencies
+
 │   └── node_modules/       # Dependencies (auto-created)
 
     
