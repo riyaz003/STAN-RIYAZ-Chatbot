@@ -38,6 +38,7 @@ Open http://localhost:3000 in your browser
 --->Project Structure
 
 stan-chat-assistant/
+
 ├── data/
 │   └── memory.db           # SQLite database (auto-created)
 
