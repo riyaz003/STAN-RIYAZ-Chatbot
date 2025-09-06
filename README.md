@@ -37,13 +37,16 @@ Open http://localhost:3000 in your browser
 
 --->Project Structure
 
-├── index.js          # Express server with AI integration
-
-├── index.html        # Frontend chat interface
-
-├── package.json      # Dependencies and scripts
-
-└── data
+stan-chat-assistant/
+├── data/
+│   └── memory.db           # SQLite database (auto-created)
+├── frontend/
+│   └── index.html          # Chat interface
+├── server/
+│   ├── index.js            # Express server with AI integration
+│   ├── package.json        # Dependencies
+│   ├── package-lock.json   # Locked dependencies
+│   └── node_modules/       # Dependencies (auto-created)
 
     
 --->Usage
