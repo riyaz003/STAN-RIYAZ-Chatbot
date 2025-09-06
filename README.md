@@ -18,10 +18,10 @@ Node.js (v14 or higher)
 
 npm or yarn
 
---->Local Installation
+Local Installation
 Clone the repository
 
-Install dependencies:
+--->Install dependencies:
 
 bash
 npm install
