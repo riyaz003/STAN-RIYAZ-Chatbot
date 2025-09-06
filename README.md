@@ -36,7 +36,7 @@ npm start
 Open http://localhost:3000 in your browser
 
 --->Project Structure
-text
+
 ├── index.js          # Express server with AI integration
 
 ├── index.html        # Frontend chat interface
@@ -45,7 +45,7 @@ text
 
 └── data/
 
-    └── memory.db     # SQLite database (created automatically)
+    
 --->Usage
 Enter a User ID (or use 'guest')
 
