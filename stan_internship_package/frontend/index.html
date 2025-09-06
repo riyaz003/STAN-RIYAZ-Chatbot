@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>STAN - Mini Chat Assistant</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #ece5dd; /* WhatsApp background tone */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #chat {
+      width: 100%;
+      max-width: 650px;
+      background: #ffffff;
+      padding: 0;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      height: 85vh;
+      overflow: hidden;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 14px;
+      background: #075e54; /* WhatsApp header green */
+      color: white;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      /* background: url("background image.jpg"); */
+      background-size: cover;
+    }
+
+    .msg {
+      padding: 10px 14px;
+      margin: 6px 0;
+      border-radius: 16px;
+      max-width: 75%;
+      line-height: 1.4;
+      font-size: 14px;
+      word-wrap: break-word;
+      animation: fadeIn 0.2s ease-in;
+    }
+
+    .user {
+      background: #dcf8c6; /* WhatsApp user bubble */
+      margin-left: auto;
+      border-bottom-right-radius: 6px;
+    }
+
+    .bot {
+      background: #ffffff; /* WhatsApp receiver bubble */
+      margin-right: auto;
+      border-bottom-left-radius: 6px;
+    }
+
+    #controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      background: #f0f0f0;
+    }
+
+    #userId {
+      width: 100px;
+      padding: 8px 10px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      outline: none;
+    }
+
+    #input {
+      flex: 1; /* wider msg box */
+      padding: 10px 14px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      outline: none;
+    }
+
+    #userId:focus,
+    #input:focus {
+      border-color: #34b7f1;
+      box-shadow: 0 0 0 2px rgba(52, 183, 241, 0.2);
+    }
+
+    button {
+      width: 100px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: none;
+      background: #25d366; /* WhatsApp green button */
+      color: white;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #20b954;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #999;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat">
+    <h3>STAN - Mini Chat Assistant</h3>
+    <div id="messages"></div>
+
+    <div id="controls">
+      <input id="userId" placeholder="User ID" />
+      <input id="input" placeholder="Type a message..." />
+      <button id="send">Send</button>
+    </div>
+  </div>
+
+<script>
+const messagesDiv = document.getElementById('messages');
+function addMessage(text, cls) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + cls;
+  d.textContent = text;
+  messagesDiv.appendChild(d);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+document.getElementById('send').addEventListener('click', async () => {
+  const userId = document.getElementById('userId').value || 'guest';
+  const input = document.getElementById('input');
+  const text = input.value.trim();
+  if(!text) return;
+  addMessage(text, 'user');
+  input.value = '';
+  try {
+    const res = await fetch('/chat', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ user_id: userId, message: text })
+    });
+    const j = await res.json();
+    if (j.error) {
+      addMessage('Error: ' + j.error, 'bot');
+    } else {
+      addMessage(j.reply + (j.simulated ? ' (simulated)' : ''), 'bot');
+    }
+  } catch (e) {
+    addMessage('Network error: ' + e.message, 'bot');
+  }
+});
+</script>
+</body>
+</html>
