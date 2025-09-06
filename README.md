@@ -43,7 +43,7 @@ Open http://localhost:3000 in your browser
 
 ├── package.json      # Dependencies and scripts
 
-└── data/
+└── data
 
     
 --->Usage
