@@ -40,8 +40,10 @@ Open http://localhost:3000 in your browser
 stan-chat-assistant/
 ├── data/
 │   └── memory.db           # SQLite database (auto-created)
+
 ├── frontend/
 │   └── index.html          # Chat interface
+
 ├── server/
 │   ├── index.js            # Express server with AI integration
 │   ├── package.json        # Dependencies
